@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libmssilk
 
-SILK_SRC=downloads/SILK_SDK_SRC_v1.0.8/SILK_SDK_SRC_ARM_v1.0.8/src
+SILK_SRC=sdk/SILK_SDK_SRC_v1.0.8/SILK_SDK_SRC_ARM_v1.0.8/src
 
 LOCAL_SRC_FILES = silk.c \
 $(SILK_SRC)/SKP_Silk_tables_NLSF_CB1_16.c \

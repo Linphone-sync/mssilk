@@ -23,7 +23,7 @@ $(checkmarks): %.check: %
 	touch $@
 
 $(silk_extracted_directory): $(checkmarks)
-	$(UNZIP) $(srcdir)/$(silk_zip) "*$(SILK_FLAVOUR)*/*"
+	$(UNZIP) $(srcdir)/$(silk_zip)
 
 $(silk_src_dir): $(silk_extracted_directory)
 	cp $(srcdir)/patch_pic.diff $(silk_src_dir)

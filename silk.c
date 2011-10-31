@@ -435,4 +435,6 @@ MSFilterDesc ms_silk_dec_desc={
 MS_PLUGIN_DECLARE(void) libmssilk_init(){
 	ms_filter_register(&ms_silk_enc_desc);
 	ms_filter_register(&ms_silk_dec_desc);
+	ms_message("SILK plugin loaded.");
 }
+
