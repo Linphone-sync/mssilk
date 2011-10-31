@@ -60,7 +60,6 @@ fi
 LT_INIT([disable-static])
 
 # check for libraries that have pkg-config files installed
-PKG_CHECK_MODULES(ORTP, ortp >= 0.16.0)
 PKG_CHECK_MODULES(MEDIASTREAMER, mediastreamer >= 2.0.0)
 
 
