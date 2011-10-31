@@ -29,11 +29,12 @@ $(silk_src_dir): $(silk_extracted_directory)
 	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
 	cd $(silk_src_dir) && $(PATCH) -p0 < patch_pic.diff
 
+extract-sources: $(silk_src_dir)
 
 
 # Call Skype Makefile to build the library
 all-local: $(silk_src_dir)
-	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) all
+	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) lib
 check-local: $(silk_src_dir)
 	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) test
 clean-local: $(silk_src_dir)
