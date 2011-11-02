@@ -8,4 +8,6 @@ build-aux/
 config.log
 config.status
 configure
+libtool
+sdk/*.zip*
 
