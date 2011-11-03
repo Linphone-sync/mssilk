@@ -23,7 +23,7 @@ $(checkmarks): %.check: %
 	touch $@
 
 $(silk_extracted_directory): $(checkmarks)
-	$(UNZIP) $(srcdir)/$(silk_zip)
+	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_src_dir)/*
 
 $(silk_src_dir): $(silk_extracted_directory)
 	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
@@ -34,18 +34,13 @@ extract-sources: $(silk_src_dir)
 
 # Call Skype Makefile to build the library
 all-local: $(silk_src_dir)
-	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) lib
+	cd $(silk_src_dir) && $(MAKE) AR=$(AR) RANLIB="$(RANLIB)" CC="$(CC) -mno-thumb" LD="$(LD)" $(SILK_MAKE_OPTIONS) $(AM_MAKEFLAGS) lib
 check-local: $(silk_src_dir)
 	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) test
 clean-local: $(silk_src_dir)
 	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) clean
-    
-install-data-local: $(silk_src_dir)
-	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) install-data
-install-exec-local: $(silk_src_dir)
-	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) install-exec
-uninstall-local: $(silk_src_dir)
-	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) uninstall
 
+install-data-local: $(silk_src_dir)
+	cp $(silk_src_dir)/libSKP_SILK_SDK.a $(prefix)/lib
 
 DISTCLEANFILES = $(BUILT_SOURCES)

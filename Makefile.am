@@ -9,7 +9,7 @@ pluginsdir = $(libdir)/mediastreamer/plugins
 
 plugins_LTLIBRARIES=libmssilk.la
 
-libmssilk_la_SOURCES=silk.c
+libmssilk_la_SOURCES=silk_dec.c silk_enc.c
 
 
 SILK_LIBS = -L${SILK_DIR} -lSKP_SILK_SDK

@@ -5,7 +5,7 @@ LOCAL_MODULE := libmssilk
 
 SILK_SRC=sdk/SILK_SDK_SRC_v1.0.8/SILK_SDK_SRC_ARM_v1.0.8/src
 
-LOCAL_SRC_FILES = silk.c \
+LOCAL_SRC_FILES = silk_enc.c silk_dec.c \
 $(SILK_SRC)/SKP_Silk_tables_NLSF_CB1_16.c \
 $(SILK_SRC)/SKP_Silk_LBRR_reset.c \
 $(SILK_SRC)/SKP_Silk_decode_parameters.c \

@@ -11,20 +11,23 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([tar-ustar --warnings=no-portability])
 
 
-# Check which SILK implementation to use (default to fixed point)
-AC_ARG_WITH(silk-flavour,
-    [  --with-silk-flavour                Choose which flavour of SILK to use (FIX, FLP or ARM). [default=FIX] ],
-    [case "${withval}" in
-        fix) SILK_FLAVOUR=FIX ;;
-        FIX) SILK_FLAVOUR=FIX ;;
-        flp) SILK_FLAVOUR=FLP ;;
-        FLP) SILK_FLAVOUR=FLP ;;
-        arm) SILK_FLAVOUR=ARM ;;
-        ARM) SILK_FLAVOUR=ARM ;;
-        *) AC_MSG_ERROR([bad value ${withval} for --with-silk-flavour]) ;;
-    esac],
-    [SILK_FLAVOUR=FIX])
+
+case $host in
+        armv6-apple*)
+        	SILK_FLAVOUR=ARM
+                SILK_MAKE_OPTIONS="ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
+        ;;
+        armv7-apple*)
+        	SILK_FLAVOUR=ARM
+                SILK_MAKE_OPTIONS="USE_NEON=yes ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
+        ;;
+  *)
+        SILK_FLAVOUR=FIX
+     ;;
+esac
+
 AC_SUBST([SILK_FLAVOUR])
+AC_SUBST([SILK_MAKE_OPTIONS])
 
 
 
