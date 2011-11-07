@@ -14,7 +14,6 @@ AM_INIT_AUTOMAKE([tar-ustar --warnings=no-portability])
 case $host in
 	arm*)
 		SILK_FLAVOUR=ARM
-		CC="$(CC) -mno-thumb"
 	;;
 	*)
 		SILK_FLAVOUR=FIX
@@ -24,9 +23,11 @@ esac
 case $host in
         armv6-apple*)
                 SILK_MAKE_OPTIONS="ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
+		CC="$(CC) -mno-thumb"
         ;;
         armv7-apple*)
                 SILK_MAKE_OPTIONS="USE_NEON=yes ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
+		CC="$(CC) -mno-thumb"
         ;;
   *)
      ;;
