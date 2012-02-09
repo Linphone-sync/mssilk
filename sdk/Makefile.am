@@ -34,7 +34,7 @@ extract-sources: $(silk_src_dir)
 
 # Call Skype Makefile to build the library
 all-local: $(silk_src_dir)
-	cd $(silk_src_dir) && $(MAKE) AR=$(AR) RANLIB="$(RANLIB)" CC="$(CC)" LD="$(LD)" $(SILK_MAKE_OPTIONS) $(AM_MAKEFLAGS) lib
+	cd $(silk_src_dir) && $(MAKE) AR=$(AR) RANLIB="$(RANLIB)" CC="$(CC) $(CFLAGS)" LD="$(LD)" $(SILK_MAKE_OPTIONS) $(AM_MAKEFLAGS) lib
 check-local: $(silk_src_dir)
 	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) test
 clean-local: $(silk_src_dir)
