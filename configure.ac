@@ -23,11 +23,11 @@ esac
 case $host in
         armv6-apple*)
                 SILK_MAKE_OPTIONS="ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
-		CC="$(CC) -mno-thumb"
+		CFLAGS="$CFLAGS -mno-thumb"
         ;;
         armv7-apple*)
                 SILK_MAKE_OPTIONS="USE_NEON=yes ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
-		CC="$(CC) -mno-thumb"
+		CFLAGS="$CFLAGS -mno-thumb"
         ;;
   *)
      ;;

@@ -82,7 +82,7 @@ static void decode(MSFilter *f, mblk_t *im) {
 static void filter_process(MSFilter *f){
 	struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
 	mblk_t* im;
-	mblk_t* fec_im;
+	mblk_t* fec_im=NULL;
 	int i;
 	SKP_int16 n_bytes_fec=0;
 	
