@@ -18,6 +18,9 @@ fi
 if test -d /opt/local/share/aclocal ; then
 	ACLOCAL_ARGS="-I /opt/local/share/aclocal"
 fi
+if test -d /share/aclocal ; then
+        ACLOCAL_ARGS="$ACLOCAL_ARGS -I /share/aclocal"
+fi
 
 echo "Generating build scripts for SILK mediastreamer2 plugin..."
 set -x
