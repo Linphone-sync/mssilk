@@ -22,6 +22,7 @@ libmssilk_la_LDFLAGS=-module -no-undefined
 
 SILK_CFLAGS = -I$(SILK_DIR)/interface 
 AM_CFLAGS=      $(SILK_CFLAGS) \
-                $(MEDIASTREAMER_CFLAGS)
+                $(MEDIASTREAMER_CFLAGS) \
+				$(STRICT_CFLAGS)
 
 

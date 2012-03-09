@@ -10,6 +10,19 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([tar-ustar --warnings=no-portability])
 
+AC_ARG_ENABLE(strict,
+[  --enable-strict       Enable error on compilation warning [default=no]],
+[wall_werror=$enableval],
+[wall_werror=yes]
+)
+
+CFLAGS="$CFLAGS -Wall"
+
+if test "$wall_werror" = "yes" ; then
+	STRICT_CFLAGS="-Werror"
+fi
+
+AC_SUBST(STRICT_CFLAGS)
 
 case $host in
 	arm*)

@@ -75,7 +75,9 @@ static void decode(MSFilter *f, mblk_t *im) {
 		om->b_wptr+=len*2;
 		ms_queue_put(f->outputs[0],om);
 	}
-	obj->sequence_number = im?mblk_get_cseq(im):++obj->sequence_number;
+	if (im){
+		obj->sequence_number = mblk_get_cseq(im);	
+	}else obj->sequence_number++;
 	
 	ms_concealer_inc_sample_time(obj->concealer,f->ticker->time,20, im!=NULL);
 }
@@ -91,7 +93,8 @@ static void filter_process(MSFilter *f){
 		do {
 			decode(f,im);
 			/* Until last 20 ms frame of packet has been decoded */
-		} while(obj->control.moreInternalDecoderFrames); 
+		} while(obj->control.moreInternalDecoderFrames);
+		freemsg(im);
 	}
 	
 	if (ms_concealer_context_is_concealement_required(obj->concealer, f->ticker->time)) {
@@ -105,7 +108,7 @@ static void filter_process(MSFilter *f){
 					if (n_bytes_fec>0) {
 						ms_message("Silk dec, got fec from jitter buffer");
 						fec_im->b_wptr+=n_bytes_fec;
-						mblk_set_cseq(fec_im,obj->sequence_number+1);
+						mblk_set_cseq(fec_im,(obj->sequence_number+1));
 						break;
 					}
 				}
@@ -125,7 +128,7 @@ static void filter_process(MSFilter *f){
 static void filter_postprocess(MSFilter *f){
     struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
 	ms_message("SILK plc count=%li",ms_concealer_context_get_total_number_of_plc(obj->concealer));
-        ms_cond_destroy(obj->concealer);
+    ms_concealer_context_destroy(obj->concealer);
 	ms_free(obj->psDec);
 }
 
