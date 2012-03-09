@@ -62,10 +62,10 @@ static void filter_preprocess(MSFilter *f){
 static void decode(MSFilter *f, mblk_t *im) {
 	struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
 	mblk_t *om;
-	SKP_int16 len;
+	SKP_int16 len=obj->control.API_sampleRate*4/100;
 	SKP_int16 ret;
 	/* Decode 20 ms */
-	om=allocb(obj->control.API_sampleRate*4/100,0); /*samplingrate*0.02*2*/ 
+	om=allocb(len,0); /*samplingrate*0.02*2*/ 
 	ret = SKP_Silk_SDK_Decode( obj->psDec, &obj->control, im?0:1, im?im->b_rptr:0, im?(im->b_wptr - im->b_rptr):0, (SKP_int16*)om->b_wptr, &len );
 	if( ret ) {
 		ms_error( "SKP_Silk_SDK_Decode returned %d", ret );
@@ -81,6 +81,7 @@ static void decode(MSFilter *f, mblk_t *im) {
 	
 	ms_concealer_inc_sample_time(obj->concealer,f->ticker->time,20, im!=NULL);
 }
+
 static void filter_process(MSFilter *f){
 	struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
 	mblk_t* im;
@@ -104,23 +105,23 @@ static void filter_process(MSFilter *f){
 			for (i=0;i<2;i++) {
 				im = obj->rtp_picker_context.picker(&obj->rtp_picker_context,obj->sequence_number+i+1);
 				if (im) {
-					SKP_Silk_SDK_search_for_LBRR( im->b_rptr, im->b_wptr - im->b_rptr, i + 1, (SKP_uint8*)fec_im->b_wptr, &n_bytes_fec );
-					if (n_bytes_fec>0) {
-						ms_message("Silk dec, got fec from jitter buffer");
-						fec_im->b_wptr+=n_bytes_fec;
-						mblk_set_cseq(fec_im,(obj->sequence_number+1));
-						break;
+					uint8_t *payload;
+					int plen=rtp_get_payload(im,&payload);
+					if (plen>0){
+						SKP_Silk_SDK_search_for_LBRR( payload, plen, i + 1, (SKP_uint8*)fec_im->b_wptr, &n_bytes_fec );
+						if (n_bytes_fec>0) {
+							ms_message("Silk dec, got fec from jitter buffer");
+							fec_im->b_wptr+=n_bytes_fec;
+							mblk_set_cseq(fec_im,(obj->sequence_number+1));
+							break;
+						}
 					}
 				}
 			}
-			if (n_bytes_fec ==0) {
-				/*too bad no fec packet found*/
-				freeb(fec_im);
-				fec_im=NULL;
-			}
 		}
 		
-		decode(f,fec_im); /*ig fec_im == NULL, plc*/
+		decode(f, (n_bytes_fec>0) ? fec_im : NULL); /*ig fec_im == NULL, plc*/
+		if (fec_im) freeb(fec_im);
 	}
 	
 }
