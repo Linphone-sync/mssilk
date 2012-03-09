@@ -147,36 +147,34 @@ static int filter_get_sample_rate(MSFilter *f, void *arg) {
 }
 
 static int filter_add_fmtp(MSFilter *f, void *arg){
-	char buf[64];
+	char buf[64]={0};
 	struct silk_enc_struct* obj= (struct silk_enc_struct*) f->data;
 	const char *fmtp=(const char *)arg;
-	buf[0] ='\0';
 	
-	if (fmtp_get_value(fmtp,"maxptime:",buf,sizeof(buf))){
+	if (fmtp_get_value(fmtp,"maxptime",buf,sizeof(buf))){
 		obj->max_ptime=atoi(buf);
 		if (obj->max_ptime <20 || obj->max_ptime >100 ) {
 			ms_warning("MSSilkEnc unknown value [%i] for maxptime, use default value (100) instead",obj->max_ptime);
 			obj->max_ptime=100;
 		}
-		ms_message("MSSilkEnc: got useinbandfec=%i",obj->max_ptime);
+		ms_message("MSSilkEnc: got maxptime=%i",obj->max_ptime);
 	} else 	if (fmtp_get_value(fmtp,"ptime",buf,sizeof(buf))){
 		obj->ptime=atoi(buf);
 		if (obj->ptime > obj->max_ptime) {
 			obj->ptime=obj->max_ptime;
 		} else if (obj->ptime%20) {
 		//if the ptime is not a mulptiple of 20, go to the next multiple
-		obj->ptime = obj->ptime - obj->ptime%20 + 20; 
+			obj->ptime = obj->ptime - obj->ptime%20 + 20; 
 		}
-		
 		ms_message("MSSilkEnc: got ptime=%i",obj->ptime);
 	} else 	if (fmtp_get_value(fmtp,"useinbandfec",buf,sizeof(buf))){
 		obj->control.useInBandFEC=atoi(buf);
 		if (obj->control.useInBandFEC != 0 && obj->control.useInBandFEC != 1) {
-			ms_warning("MSSilkEnc unknown value [%i] for useinbandfec, use default value (0) instead",obj->control.useInBandFEC);
+			ms_warning("MSSilkEnc unknown value [%i] for useinbandfec, use default value (1) instead",obj->control.useInBandFEC);
 			obj->control.useInBandFEC=1;
 		}
 		ms_message("MSSilkEnc: got useinbandfec=%i",obj->control.useInBandFEC);
-	} 
+	}else ms_message("MSSilkEnc: unhandled fmtp %s",fmtp);
 	
 	return 0;
 }
@@ -210,7 +208,7 @@ static int filter_set_bitrate(MSFilter *f, void *arg){
 		ms_warning("Silk enc unsupported codec bitrate [%i], normalizing",inital_cbr); 
 	}
 	obj->control.bitRate=normalized_cbr;
-	ms_message("Setting silk codec birate to [%i] from network bitrate [%i] with ptime [%i]",obj->control.bitRate,obj->max_network_bitrate,obj->ptime);
+	ms_message("MSSilkEnc: Setting silk codec birate to [%i] from network bitrate [%i] with ptime [%i]",obj->control.bitRate,obj->max_network_bitrate,obj->ptime);
 	return 0;
 }
 
@@ -258,3 +256,4 @@ void libmssilk_init(){
 	ms_filter_register(&ms_silk_dec_desc);
 	ms_message(" libmssilk " VERSION " plugin loaded");
 }
+
