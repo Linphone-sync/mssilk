@@ -127,9 +127,9 @@ static void filter_process(MSFilter *f){
 }
 
 static void filter_postprocess(MSFilter *f){
-    struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
-	ms_message("SILK plc count=%li",ms_concealer_context_get_total_number_of_plc(obj->concealer));
-    ms_concealer_context_destroy(obj->concealer);
+	struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
+	//ms_message("SILK plc count=%i",(int)ms_concealer_context_get_total_number_of_plc(obj->concealer));
+	ms_concealer_context_destroy(obj->concealer);
 	ms_free(obj->psDec);
 }
 
