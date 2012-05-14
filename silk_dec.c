@@ -71,13 +71,15 @@ static void decode(MSFilter *f, mblk_t *im) {
 		ms_error( "SKP_Silk_SDK_Decode returned %d", ret );
 		freeb(om);
 	} else {
-		
 		om->b_wptr+=len*2;
+		mblk_set_plc_flag(om, (im!=NULL)?0:1);
 		ms_queue_put(f->outputs[0],om);
 	}
 	if (im){
 		obj->sequence_number = mblk_get_cseq(im);	
-	}else obj->sequence_number++;
+	} else {
+		obj->sequence_number++;
+	}
 	
 	ms_concealer_inc_sample_time(obj->concealer,f->ticker->time,20, im!=NULL);
 }
