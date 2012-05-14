@@ -169,11 +169,17 @@ static int filter_set_rtp_picker(MSFilter *f, void *arg) {
 	obj->rtp_picker_context=*(MSRtpPayloadPickerContext*)arg;
 	return 0;
 }
+static int filter_have_plc(MSFilter *f, void *arg)
+{
+	*((int *)arg) = 1;
+	return 0;
+}
 static MSFilterMethod filter_methods[]={
-	{	MS_FILTER_SET_SAMPLE_RATE , filter_set_sample_rate },
-    {	MS_FILTER_GET_SAMPLE_RATE , filter_get_sample_rate },
-	{	MS_FILTER_SET_RTP_PAYLOAD_PICKER,filter_set_rtp_picker},
-	{	0, NULL}
+	{	MS_FILTER_SET_SAMPLE_RATE 	, 	filter_set_sample_rate 	},
+	{	MS_FILTER_GET_SAMPLE_RATE 	, 	filter_get_sample_rate 	},
+	{	MS_FILTER_SET_RTP_PAYLOAD_PICKER,	filter_set_rtp_picker	},
+	{ 	MS_DECODER_HAVE_PLC		, 	filter_have_plc		},
+	{	0				, 	NULL			}
 };
 
 
