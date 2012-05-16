@@ -66,6 +66,8 @@ static void decode(MSFilter *f, mblk_t *im) {
 	SKP_int16 ret;
 	/* Decode 20 ms */
 	om=allocb(len,0); /*samplingrate*0.02*2*/ 
+	if(im != NULL)
+		mblk_meta_copy(im, om);
 	ret = SKP_Silk_SDK_Decode( obj->psDec, &obj->control, im?0:1, im?im->b_rptr:0, im?(im->b_wptr - im->b_rptr):0, (SKP_int16*)om->b_wptr, &len );
 	if( ret ) {
 		ms_error( "SKP_Silk_SDK_Decode returned %d", ret );
