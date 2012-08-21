@@ -1,6 +1,7 @@
-silk_version = 1.0.8
+silk_version = 1.0.9
 silk_extracted_directory = SILK_SDK_SRC_v$(silk_version)
-silk_src_dir = $(silk_extracted_directory)/SILK_SDK_SRC_$(SILK_FLAVOUR)_v$(silk_version)
+silk_flavour_dir = SILK_SDK_SRC_$(SILK_FLAVOUR)_v$(silk_version)
+silk_src_dir = $(silk_extracted_directory)/${silk_flavour_dir}
 
 silk_zip = $(silk_extracted_directory).zip
 silk_url = http://developer.skype.com/silk/$(silk_zip)
@@ -23,7 +24,8 @@ $(checkmarks): %.check: %
 	touch $@
 
 $(silk_extracted_directory): $(checkmarks)
-	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_src_dir)/*
+	mkdir ${silk_extracted_directory}
+	cd ${silk_extracted_directory} && $(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/*
 
 $(silk_src_dir): $(silk_extracted_directory)
 	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
