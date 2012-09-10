@@ -20,7 +20,7 @@
 #include "mediastreamer2/mscodecutils.h"
 #include "mediastreamer2/msfilter.h"
 #include "mediastreamer2/msticker.h"
-
+#include "ortp/rtp.h"
 
 /*filter common method*/
 struct silk_dec_struct {
