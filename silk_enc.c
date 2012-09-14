@@ -145,6 +145,7 @@ static int filter_get_sample_rate(MSFilter *f, void *arg) {
     *(int*)arg = obj->control.maxInternalSampleRate;
 	return 0;
 }
+static int filter_set_bitrate(MSFilter *f, void *arg);
 
 static int filter_add_fmtp(MSFilter *f, void *arg){
 	char buf[64]={0};
@@ -167,6 +168,8 @@ static int filter_add_fmtp(MSFilter *f, void *arg){
 			obj->ptime = obj->ptime - obj->ptime%20 + 20; 
 		}
 		ms_message("MSSilkEnc: got ptime=%i",obj->ptime);
+		/*new encoder bitrate must be computed*/
+		filter_set_bitrate(f,&obj->max_network_bitrate);
 	} else 	if (fmtp_get_value(fmtp,"useinbandfec",buf,sizeof(buf))){
 		obj->control.useInBandFEC=atoi(buf);
 		if (obj->control.useInBandFEC != 0 && obj->control.useInBandFEC != 1) {
