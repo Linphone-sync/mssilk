@@ -25,7 +25,7 @@ $(checkmarks): %.check: %
 
 $(silk_extracted_directory): $(checkmarks)
 	mkdir ${silk_extracted_directory}
-	cd ${silk_extracted_directory} && $(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/*
+	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/* -d ${silk_extracted_directory}
 
 $(silk_src_dir): $(silk_extracted_directory)
 	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
