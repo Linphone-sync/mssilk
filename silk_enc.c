@@ -37,10 +37,10 @@ struct silk_enc_struct {
 
 static void filter_init(MSFilter *f){
     struct silk_enc_struct* obj;
-	f->data = ms_new0(struct silk_enc_struct,1);
-	obj = (struct silk_enc_struct*) f->data;
 	SKP_int16 ret;
 	SKP_int32 encSizeBytes;
+	f->data = ms_new0(struct silk_enc_struct,1);
+	obj = (struct silk_enc_struct*) f->data;
 	
     /* Create encoder */
     ret = SKP_Silk_SDK_Get_Encoder_Size(&encSizeBytes );
@@ -232,6 +232,26 @@ static MSFilterMethod filter_methods[]={
 };
 
 
+#ifdef _MSC_VER
+
+MSFilterDesc ms_silk_enc_desc={
+	MS_FILTER_PLUGIN_ID, /* from Allfilters.h*/
+	"MSSILKEnc",
+	"SILK audio encoder filter.",
+	MS_FILTER_ENCODER,
+	"SILK",
+	1, /*number of inputs*/
+	1, /*number of outputs*/
+	filter_init,
+	filter_preprocess,
+	filter_process,
+    filter_postprocess,
+	filter_unit,
+	filter_methods,
+	0
+};
+
+#else
 
 MSFilterDesc ms_silk_enc_desc={
 	.id=MS_FILTER_PLUGIN_ID, /* from Allfilters.h*/
@@ -248,13 +268,24 @@ MSFilterDesc ms_silk_enc_desc={
 	.uninit=filter_unit,
 	.methods=filter_methods
 };
+
+#endif
+
 MS_FILTER_DESC_EXPORT(ms_silk_enc_desc)
 
 extern MSFilterDesc ms_silk_dec_desc;
+
 #ifndef VERSION
 	#define VERSION "debug"
 #endif
-void libmssilk_init(){
+
+#ifdef _MSC_VER
+#define MS_PLUGIN_DECLARE(type) __declspec(dllexport) type
+#else
+#define MS_PLUGIN_DECLARE(type) type
+#endif
+
+MS_PLUGIN_DECLARE(void) libmssilk_init(){
 	ms_filter_register(&ms_silk_enc_desc);
 	ms_filter_register(&ms_silk_dec_desc);
 	ms_message(" libmssilk " VERSION " plugin loaded");

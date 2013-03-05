@@ -22,6 +22,8 @@
 #include "mediastreamer2/msticker.h"
 #include "ortp/rtp.h"
 
+#include <stdint.h>
+
 /*filter common method*/
 struct silk_dec_struct {
     SKP_SILK_SDK_DecControlStruct control;
@@ -188,6 +190,27 @@ static MSFilterMethod filter_methods[]={
 
 
 
+#ifdef _MSC_VER
+
+MSFilterDesc ms_silk_dec_desc={
+	MS_FILTER_PLUGIN_ID, /* from Allfilters.h*/
+	"MSSILKDec",
+	"Silk decoder filter.",
+	MS_FILTER_DECODER,
+	"SILK",
+	1, /*number of inputs*/
+	1, /*number of outputs*/
+	filter_init,
+	filter_preprocess,
+	filter_process,
+    filter_postprocess,
+	filter_unit,
+	filter_methods,
+	MS_FILTER_IS_PUMP
+};
+
+#else
+
 MSFilterDesc ms_silk_dec_desc={
 	.id=MS_FILTER_PLUGIN_ID, /* from Allfilters.h*/
 	.name="MSSILKDec",
@@ -204,4 +227,7 @@ MSFilterDesc ms_silk_dec_desc={
 	.methods=filter_methods,
 	.flags=MS_FILTER_IS_PUMP
 };
+
+#endif
+
 MS_FILTER_DESC_EXPORT(ms_silk_dec_desc)

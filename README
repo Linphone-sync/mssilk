@@ -7,3 +7,5 @@ By default, the upstream package installs into /usr/local.  Please use
 
 To prevent executing unknown scripts or code, the downloaded files are checked
 against their known MD5 checksums.
+
+To compile on Windows using Visual Studio you need to install wget and unzip from the GnuWin32 project and put them in your path. You can download them from http://gnuwin32.sourceforge.net/
