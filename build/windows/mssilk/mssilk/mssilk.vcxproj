@@ -67,7 +67,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(SolutionDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(SolutionDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -123,7 +123,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(SolutionDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -150,7 +150,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(SolutionDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(SolutionDir)..\..\..\..\ortp\include;$(SolutionDir)..\..\..\..\mediastreamer2-private\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
