@@ -147,6 +147,29 @@ static int filter_get_sample_rate ( MSFilter *f, void *arg ) {
 }
 static int filter_set_bitrate ( MSFilter *f, void *arg );
 
+#ifdef MS_AUDIO_ENCODER_SET_PTIME
+static int filter_get_ptime(MSFilter *f, void *arg){
+	struct silk_enc_struct* obj= ( struct silk_enc_struct* ) f->data;
+	*(int*)arg=obj->ptime;
+	return 0;
+}
+#endif
+
+static int filter_set_ptime(MSFilter *f, void *arg){
+	struct silk_enc_struct* obj= ( struct silk_enc_struct* ) f->data;
+	obj->ptime=*(int*)arg;
+	if ( obj->ptime > obj->max_ptime ) {
+		obj->ptime=obj->max_ptime;
+	} else if ( obj->ptime%20 ) {
+		//if the ptime is not a mulptiple of 20, go to the next multiple
+		obj->ptime = obj->ptime - obj->ptime%20 + 20;
+	}
+	ms_message ( "MSSilkEnc: got ptime=%i",obj->ptime );
+	/*new encoder bitrate must be computed*/
+	filter_set_bitrate ( f,&obj->max_network_bitrate );
+	return 0;
+}
+
 static int filter_add_fmtp ( MSFilter *f, void *arg ) {
 	char buf[64]= {0};
 	struct silk_enc_struct* obj= ( struct silk_enc_struct* ) f->data;
@@ -160,16 +183,8 @@ static int filter_add_fmtp ( MSFilter *f, void *arg ) {
 		}
 		ms_message ( "MSSilkEnc: got maxptime=%i",obj->max_ptime );
 	} else 	if ( fmtp_get_value ( fmtp,"ptime",buf,sizeof ( buf ) ) ) {
-		obj->ptime=atoi ( buf );
-		if ( obj->ptime > obj->max_ptime ) {
-			obj->ptime=obj->max_ptime;
-		} else if ( obj->ptime%20 ) {
-			//if the ptime is not a mulptiple of 20, go to the next multiple
-			obj->ptime = obj->ptime - obj->ptime%20 + 20;
-		}
-		ms_message ( "MSSilkEnc: got ptime=%i",obj->ptime );
-		/*new encoder bitrate must be computed*/
-		filter_set_bitrate ( f,&obj->max_network_bitrate );
+		int val=atoi(buf);
+		filter_set_ptime(f,&val);
 	} else 	if ( fmtp_get_value ( fmtp,"useinbandfec",buf,sizeof ( buf ) ) ) {
 		obj->control.useInBandFEC=atoi ( buf );
 		if ( obj->control.useInBandFEC != 0 && obj->control.useInBandFEC != 1 ) {
@@ -228,6 +243,10 @@ static MSFilterMethod filter_methods[]= {
 	{	MS_FILTER_SET_BITRATE		,	filter_set_bitrate	},
 	{	MS_FILTER_GET_BITRATE		,	filter_get_bitrate	},
 	{	MS_FILTER_ADD_FMTP		,	filter_add_fmtp },
+#ifdef MS_AUDIO_ENCODER_SET_PTIME
+	{	MS_AUDIO_ENCODER_SET_PTIME	,	filter_set_ptime	},
+	{	MS_AUDIO_ENCODER_GET_PTIME	,	filter_get_ptime	},
+#endif
 	{	0, NULL}
 };
 
