@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libmssilk
 
-SILK_SRC=sdk/SILK_SDK_SRC_v1.0.8/SILK_SDK_SRC_ARM_v1.0.8/src
+SILK_SRC=sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_ARM_v1.0.9/src
 
 LOCAL_SRC_FILES = silk_enc.c silk_dec.c \
 $(SILK_SRC)/SKP_Silk_tables_NLSF_CB1_16.c \
@@ -20,7 +20,7 @@ $(SILK_SRC)/SKP_Silk_resampler_private_up4.c \
 $(SILK_SRC)/SKP_Silk_scale_copy_vector16.c \
 $(SILK_SRC)/SKP_Silk_regularize_correlations_FIX.c \
 $(SILK_SRC)/SKP_Silk_resampler_down2.c \
-$(SILK_SRC)/SKP_Silk_apply_sine_window_new.c \
+$(SILK_SRC)/SKP_Silk_apply_sine_window.c \
 $(SILK_SRC)/SKP_Silk_encode_parameters.c \
 $(SILK_SRC)/SKP_Silk_NLSF_MSVQ_decode.c \
 $(SILK_SRC)/SKP_Silk_autocorr.c \
@@ -116,6 +116,7 @@ $(SILK_SRC)/SKP_Silk_decode_core.c \
 $(SILK_SRC)/SKP_Silk_resampler_private_down4.c \
 $(SILK_SRC)/SKP_Silk_gain_quant.c
 
+ifeq ($(TARGET_ARCH),arm)
 LOCAL_SRC_FILES +=  \
 $(SILK_SRC)/SKP_Silk_warped_autocorrelation_FIX_arm.S \
 $(SILK_SRC)/SKP_Silk_resampler_private_ARMA4_arm.S \
@@ -140,7 +141,7 @@ $(SILK_SRC)/SKP_Silk_sigm_Q15_arm.S \
 $(SILK_SRC)/SKP_Silk_A2NLSF_arm.S \
 $(SILK_SRC)/SKP_Silk_resampler_rom_arm.S \
 $(SILK_SRC)/SKP_Silk_MA_arm.S
-
+endif
 
 LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../linphone/oRTP/include \
