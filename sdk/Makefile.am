@@ -5,6 +5,7 @@ silk_src_dir = $(silk_extracted_directory)/${silk_flavour_dir}
 
 silk_zip = $(silk_extracted_directory).zip
 silk_url = http://developer.skype.com/silk/$(silk_zip)
+silk_lib = libSKP_SILK_SDK.a
 
 downloaded_files = $(silk_zip)
 checkmarks = $(downloaded_files:%=%.check)
@@ -43,6 +44,6 @@ clean-local: $(silk_src_dir)
 	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) clean
 
 install-data-local: $(silk_src_dir)
-	cp $(silk_src_dir)/libSKP_SILK_SDK.a $(prefix)/lib
+	$(INSTALL) -D $(silk_src_dir)/$(silk_lib) $(DESTDIR)$(prefix)/lib/$(silk_lib)
 
 DISTCLEANFILES = $(BUILT_SOURCES)
