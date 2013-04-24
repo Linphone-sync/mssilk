@@ -140,7 +140,8 @@ $(SILK_SRC)/SKP_Silk_NLSF_VQ_sum_error_FIX_arm.S \
 $(SILK_SRC)/SKP_Silk_sigm_Q15_arm.S \
 $(SILK_SRC)/SKP_Silk_A2NLSF_arm.S \
 $(SILK_SRC)/SKP_Silk_resampler_rom_arm.S \
-$(SILK_SRC)/SKP_Silk_MA_arm.S
+$(SILK_SRC)/SKP_Silk_MA_arm.S \
+$(SILK_SRC)/SKP_Silk_div_oabi.c
 endif
 
 LOCAL_C_INCLUDES += \
