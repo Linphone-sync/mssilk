@@ -28,9 +28,19 @@ $(silk_extracted_directory): $(checkmarks)
 	mkdir ${silk_extracted_directory}
 	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/* -d ${silk_extracted_directory}
 
-$(silk_src_dir): $(silk_extracted_directory)
-	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
+if BUILD_WIN32
+apply-patch:
+
+else
+
+apply-patch: $(srcdir)/patch_pic.diff
 	cd $(silk_src_dir) && $(PATCH) -p0 < patch_pic.diff
+
+endif
+
+$(silk_src_dir): $(silk_extracted_directory) apply-patch
+	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
+	
 
 extract-sources: $(silk_src_dir)
 

@@ -95,7 +95,6 @@ LT_INIT([disable-static])
 case $target_os in 
 	*mingw*)
 		mingw_found=yes
-		CFLAGS="$CFLAGS"
 	;;
 esac
 
