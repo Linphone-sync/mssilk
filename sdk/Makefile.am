@@ -29,18 +29,14 @@ $(silk_extracted_directory): $(checkmarks)
 	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/* -d ${silk_extracted_directory}
 
 if BUILD_WIN32
-apply-patch:
+#apply the patch fails under mingw, and it is unuseful.
+$(silk_src_dir): $(silk_extracted_directory)
 
 else
-
-apply-patch: $(srcdir)/patch_pic.diff
-	cd $(silk_src_dir) && $(PATCH) -p0 < patch_pic.diff
-
-endif
-
-$(silk_src_dir): $(silk_extracted_directory) apply-patch
-	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
+$(silk_src_dir): $(silk_extracted_directory)
+	cd $(silk_src_dir) && $(PATCH) -p0 < $(srcdir)/patch_pic.diff
 	
+endif
 
 extract-sources: $(silk_src_dir)
 
