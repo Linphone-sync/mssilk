@@ -34,7 +34,9 @@ $(silk_src_dir): $(silk_extracted_directory)
 
 else
 $(silk_src_dir): $(silk_extracted_directory)
-	cd $(silk_src_dir) && $(PATCH) -p0 < $(srcdir)/patch_pic.diff
+	cp -f $(srcdir)/patch_pic.diff $(silk_src_dir)/.
+	cd $(silk_src_dir) && $(PATCH) -p0 < patch_pic.diff
+	rm -f $(silk_src_dir)/patch_pic.diff
 	
 endif
 
