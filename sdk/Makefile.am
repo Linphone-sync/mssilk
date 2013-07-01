@@ -5,6 +5,7 @@ silk_src_dir = $(silk_extracted_directory)/${silk_flavour_dir}
 
 silk_zip = $(silk_extracted_directory).zip
 silk_url = http://developer.skype.com/silk/$(silk_zip)
+silk_lib = libSKP_SILK_SDK.a
 
 downloaded_files = $(silk_zip)
 checkmarks = $(downloaded_files:%=%.check)
@@ -27,9 +28,17 @@ $(silk_extracted_directory): $(checkmarks)
 	mkdir ${silk_extracted_directory}
 	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/* -d ${silk_extracted_directory}
 
+if BUILD_WIN32
+#apply the patch fails under mingw, and it is unuseful.
 $(silk_src_dir): $(silk_extracted_directory)
-	cp $(srcdir)/patch_pic.diff $(silk_src_dir)
+
+else
+$(silk_src_dir): $(silk_extracted_directory)
+	cp -f $(srcdir)/patch_pic.diff $(silk_src_dir)/.
 	cd $(silk_src_dir) && $(PATCH) -p0 < patch_pic.diff
+	rm -f $(silk_src_dir)/patch_pic.diff
+	
+endif
 
 extract-sources: $(silk_src_dir)
 
@@ -43,6 +52,6 @@ clean-local: $(silk_src_dir)
 	cd $(silk_src_dir) && $(MAKE) $(AM_MAKEFLAGS) clean
 
 install-data-local: $(silk_src_dir)
-	cp $(silk_src_dir)/libSKP_SILK_SDK.a $(prefix)/lib
+	$(INSTALL) -D $(silk_src_dir)/$(silk_lib) $(DESTDIR)$(prefix)/lib/$(silk_lib)
 
 DISTCLEANFILES = $(BUILT_SOURCES)

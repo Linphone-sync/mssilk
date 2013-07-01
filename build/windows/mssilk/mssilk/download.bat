@@ -11,16 +11,16 @@ SET silk_zip=%silk_extracted_directory%.zip
 SET silk_url=http://developer.skype.com/silk/%silk_zip%
 
 REM define the tools
-SET wget=wget.exe
-SET unzip=unzip.exe
+SET wget_cmd=wget.exe
+SET unzip_cmd=unzip.exe
 
 REM get the sources
 IF NOT EXIST %srcdir%\%silk_zip% (
-	%wget% %silk_url% -O %srcdir%\%silk_zip%
+	%wget_cmd% %silk_url% -O %srcdir%\%silk_zip%
 )
 
 REM extract the sources
 IF NOT EXIST %srcdir%\%silk_extracted_directory% (
 	MD %srcdir%\%silk_extracted_directory%
-	%unzip% %srcdir%\%silk_zip% %silk_arm_dir%\* %silk_fix_dir%\* -d %srcdir%\%silk_extracted_directory%
+	%unzip_cmd% %srcdir%\%silk_zip% %silk_arm_dir%\* %silk_fix_dir%\* -d %srcdir%\%silk_extracted_directory%
 )

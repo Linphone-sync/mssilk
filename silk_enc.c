@@ -236,6 +236,17 @@ static int filter_get_bitrate ( MSFilter *f, void *arg ) {
 	return 0;
 }
 
+static int filter_set_packetloss(MSFilter *f, void *arg){
+	struct silk_enc_struct* obj= ( struct silk_enc_struct* ) f->data;
+	obj->control.packetLossPercentage=* ( int* ) arg;
+	return 0;
+}
+
+static int filter_enable_inband_fec(MSFilter *f, void *arg){
+	struct silk_enc_struct* obj= ( struct silk_enc_struct* ) f->data;
+	obj->control.useInBandFEC=* ( int* ) arg;
+	return 0;
+}
 
 static MSFilterMethod filter_methods[]= {
 	{	MS_FILTER_SET_SAMPLE_RATE , filter_set_sample_rate },
@@ -246,6 +257,10 @@ static MSFilterMethod filter_methods[]= {
 #ifdef MS_AUDIO_ENCODER_SET_PTIME
 	{	MS_AUDIO_ENCODER_SET_PTIME	,	filter_set_ptime	},
 	{	MS_AUDIO_ENCODER_GET_PTIME	,	filter_get_ptime	},
+#endif
+#ifdef MS_AUDIO_ENCODER_SET_PACKET_LOSS
+	{	MS_AUDIO_ENCODER_SET_PACKET_LOSS	,	filter_set_packetloss	},
+	{	MS_AUDIO_ENCODER_ENABLE_FEC	,	filter_enable_inband_fec	},
 #endif
 	{	0, NULL}
 };

@@ -125,8 +125,9 @@ static void filter_process(MSFilter *f){
 				}
 			}
 		}
-		
-		decode(f, (n_bytes_fec>0) ? fec_im : NULL); /*ig fec_im == NULL, plc*/
+		do{
+			decode(f, (n_bytes_fec>0) ? fec_im : NULL); /*if fec_im == NULL, plc*/
+		} while(obj->control.moreInternalDecoderFrames);
 		if (fec_im) freeb(fec_im);
 	}
 	
