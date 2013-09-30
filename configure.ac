@@ -27,7 +27,14 @@ AC_SUBST(STRICT_CFLAGS)
 
 case $host in
 	arm*)
-		SILK_FLAVOUR=ARM
+		case $CC in
+			*clang*) # clang doesn't like the old ARM assembly
+				SILK_FLAVOUR=FIX
+			;;
+			*)
+				SILK_FLAVOUR=ARM
+			;;
+		esac
 	;;
 	*)
 		SILK_FLAVOUR=FIX
@@ -46,6 +53,8 @@ case $host in
   *)
      ;;
 esac
+
+
 
 AC_SUBST([SILK_FLAVOUR])
 AC_SUBST([SILK_MAKE_OPTIONS])
