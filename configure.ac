@@ -90,8 +90,12 @@ fi
 
 LT_INIT([disable-static])
 
-# check for libraries that have pkg-config files installed
-PKG_CHECK_MODULES(MEDIASTREAMER, mediastreamer >= 2.0.0)
+AC_ARG_WITH([mediastreamer], AS_HELP_STRING([--without-mediastreamer], [Permits to deactivate mediastreamer check for download of SILK code only]))
+
+if test "x$with_mediastreamer" != "xno"; then
+    # check for libraries that have pkg-config files installed
+    PKG_CHECK_MODULES(MEDIASTREAMER, mediastreamer >= 2.0.0)
+fi
 
 
 # Checks for libraries.
