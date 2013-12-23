@@ -4,7 +4,8 @@ silk_flavour_dir = SILK_SDK_SRC_$(SILK_FLAVOUR)_v$(silk_version)
 silk_src_dir = $(silk_extracted_directory)/${silk_flavour_dir}
 
 silk_zip = $(silk_extracted_directory).zip
-silk_url = http://developer.skype.com/silk/$(silk_zip)
+#silk_url = http://developer.skype.com/silk/$(silk_zip)
+silk_url = http://www.belledonne-communications.com/downloads/contrib/$(silk_zip)
 silk_lib = libSKP_SILK_SDK.a
 
 downloaded_files = $(silk_zip)
