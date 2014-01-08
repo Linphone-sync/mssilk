@@ -26,16 +26,15 @@
 
 /*filter common method*/
 struct silk_dec_struct {
-    SKP_SILK_SDK_DecControlStruct control;
+	SKP_SILK_SDK_DecControlStruct control;
 	void  *psDec;
 	MSConcealerContext *concealer;
 	MSRtpPayloadPickerContext rtp_picker_context;
-	unsigned  short int sequence_number;
-	
+	unsigned  short int sequence_number;	
 };
 
 static void filter_init(MSFilter *f){
-        f->data = ms_new0(struct silk_dec_struct,1);
+	f->data = ms_new0(struct silk_dec_struct,1);
 }
 
 static void filter_preprocess(MSFilter *f){
@@ -43,19 +42,19 @@ static void filter_preprocess(MSFilter *f){
 	SKP_int16 ret;
 	SKP_int32 decSizeBytes;
 	/* Initialize to one frame per packet, for proper concealment before first packet arrives */
-    obj->control.framesPerPacket = 1;
-    /* Create decoder */
-    ret = SKP_Silk_SDK_Get_Decoder_Size(&decSizeBytes );
-    if( ret ) {
-        ms_error("SKP_Silk_SDK_Get_Decoder_Size returned %d", ret );
-    }
-    obj->psDec = ms_malloc(decSizeBytes);
-    /* Reset decoder */
-    ret = SKP_Silk_SDK_InitDecoder(obj->psDec);
-    if(ret) {
-        ms_error( "SKP_Silk_InitDecoder returned %d", ret );
-    }
-    obj->concealer = ms_concealer_context_new(UINT32_MAX);
+	obj->control.framesPerPacket = 1;
+	/* Create decoder */
+	ret = SKP_Silk_SDK_Get_Decoder_Size(&decSizeBytes );
+	if( ret ) {
+		ms_error("SKP_Silk_SDK_Get_Decoder_Size returned %d", ret );
+	}
+	obj->psDec = ms_malloc(decSizeBytes);
+	/* Reset decoder */
+	ret = SKP_Silk_SDK_InitDecoder(obj->psDec);
+	if(ret) {
+		ms_error( "SKP_Silk_InitDecoder returned %d", ret );
+	}
+	obj->concealer = ms_concealer_context_new(UINT32_MAX);
 }
 /**
  put im to NULL for PLC
@@ -96,7 +95,6 @@ static void filter_process(MSFilter *f){
 	SKP_int16 n_bytes_fec=0;
 	
 	while((im=ms_queue_get(f->inputs[0]))) {
-		
 		do {
 			decode(f,im);
 			/* Until last 20 ms frame of packet has been decoded */
@@ -141,7 +139,7 @@ static void filter_postprocess(MSFilter *f){
 }
 
 static void filter_unit(MSFilter *f){
-    ms_free(f->data);
+	ms_free(f->data);
 }
 
 
@@ -168,19 +166,21 @@ static int filter_set_sample_rate(MSFilter *f, void *arg) {
 
 static int filter_get_sample_rate(MSFilter *f, void *arg) {
 	struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
-    *(int*)arg = obj->control.API_sampleRate;
+	*(int*)arg = obj->control.API_sampleRate;
 	return 0;
 }
+
 static int filter_set_rtp_picker(MSFilter *f, void *arg) {
 	struct silk_dec_struct* obj= (struct silk_dec_struct*) f->data;
 	obj->rtp_picker_context=*(MSRtpPayloadPickerContext*)arg;
 	return 0;
 }
-static int filter_have_plc(MSFilter *f, void *arg)
-{
+
+static int filter_have_plc(MSFilter *f, void *arg){
 	*((int *)arg) = 1;
 	return 0;
 }
+
 static MSFilterMethod filter_methods[]={
 	{	MS_FILTER_SET_SAMPLE_RATE 	, 	filter_set_sample_rate 	},
 	{	MS_FILTER_GET_SAMPLE_RATE 	, 	filter_get_sample_rate 	},
