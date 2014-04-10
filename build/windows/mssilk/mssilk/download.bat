@@ -8,7 +8,7 @@ SET silk_arm_dir=SILK_SDK_SRC_ARM_v%silk_version%
 SET silk_fix_dir=SILK_SDK_SRC_FIX_v%silk_version%
 
 SET silk_zip=%silk_extracted_directory%.zip
-SET silk_url=http://developer.skype.com/silk/%silk_zip%
+SET silk_url=http://www.belledonne-communications.com/downloads/contrib/%silk_zip%
 
 REM define the tools
 SET wget_cmd=wget.exe
