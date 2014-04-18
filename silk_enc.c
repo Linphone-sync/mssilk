@@ -200,9 +200,9 @@ static int filter_set_bitrate ( MSFilter *f, void *arg ) {
 	struct silk_enc_struct* obj= ( struct silk_enc_struct* ) f->data;
 	int inital_cbr=0;
 	int normalized_cbr=0;
-	int pps=1000/obj->ptime;
-	obj->max_network_bitrate=* ( int* ) arg;
-	normalized_cbr=inital_cbr= ( int ) ( ( ( ( ( float ) obj->max_network_bitrate ) / ( pps*8 ) )-20-12-8 ) *pps*8 );
+	float pps=1000.0f/obj->ptime;
+	unsigned int network_bitrate=* ( int* ) arg;
+	normalized_cbr=inital_cbr= ( int ) ( ( ( ( ( float ) network_bitrate ) / ( pps*8 ) )-20-12-8 ) *pps*8 );
 	switch ( obj->control.maxInternalSampleRate ) {
 		case 8000:
 			normalized_cbr=MIN ( normalized_cbr,20000 );
@@ -226,7 +226,9 @@ static int filter_set_bitrate ( MSFilter *f, void *arg ) {
 		ms_warning ( "Silk enc unsupported codec bitrate [%i], normalizing",inital_cbr );
 	}
 	obj->control.bitRate=normalized_cbr;
+	obj->max_network_bitrate=(unsigned int)(((float)normalized_cbr/(pps*8) +20+12+8)*pps*8);
 	ms_message ( "MSSilkEnc: Setting silk codec birate to [%i] from network bitrate [%i] with ptime [%i]",obj->control.bitRate,obj->max_network_bitrate,obj->ptime );
+
 	return 0;
 }
 
