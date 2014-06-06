@@ -26,7 +26,7 @@ $(checkmarks): %.check: %
 	touch $@
 
 $(silk_extracted_directory): $(checkmarks)
-	mkdir ${silk_extracted_directory}
+	mkdir -p ${silk_extracted_directory}
 	$(UNZIP) $(srcdir)/$(silk_zip) $(silk_flavour_dir)/* -d ${silk_extracted_directory}
 
 if BUILD_WIN32
