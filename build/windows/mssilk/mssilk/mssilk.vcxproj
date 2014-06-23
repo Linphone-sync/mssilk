@@ -67,7 +67,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\ortp\include;$(ProjectDir)..\..\..\..\..\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\linphone\ortp\include;$(ProjectDir)..\..\..\..\..\linphone\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\ortp\include;$(ProjectDir)..\..\..\..\..\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\linphone\ortp\include;$(ProjectDir)..\..\..\..\..\linphone\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -123,7 +123,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\ortp\include;$(ProjectDir)..\..\..\..\..\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\linphone\ortp\include;$(ProjectDir)..\..\..\..\..\linphone\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -150,7 +150,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\ortp\include;$(ProjectDir)..\..\..\..\..\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(Platform)\$(Configuration)\include;$(ProjectDir)..\..\..\..\..\linphone\ortp\include;$(ProjectDir)..\..\..\..\..\linphone\mediastreamer2\include;$(ProjectDir)..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -185,7 +185,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup  Condition="'$(Platform)'=='ARM'">
+  <ItemGroup Condition="'$(Platform)'=='ARM'">
     <ClCompile Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_A2NLSF.c" />
     <ClCompile Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_ana_filt_bank_1.c" />
     <ClCompile Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_apply_sine_window.c" />
@@ -298,7 +298,7 @@
     <ClCompile Include="..\..\..\..\silk_dec.c" />
     <ClCompile Include="..\..\..\..\silk_enc.c" />
   </ItemGroup>
-  <ItemGroup  Condition="'$(Platform)'=='ARM'">
+  <ItemGroup Condition="'$(Platform)'=='ARM'">
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_common_pitch_est_defines.h" />
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_define.h" />
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_Inlines.h" />
@@ -321,7 +321,7 @@
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_tables_NLSF_CB1_16.h" />
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\src\SKP_Silk_tuning_parameters.h" />
   </ItemGroup>
-  <ItemGroup  Condition="'$(Platform)'=='Win32'">
+  <ItemGroup Condition="'$(Platform)'=='Win32'">
     <ClCompile Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\src\SKP_Silk_A2NLSF.c" />
     <ClCompile Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\src\SKP_Silk_ana_filt_bank_1.c" />
     <ClCompile Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\src\SKP_Silk_apply_sine_window.c" />
@@ -434,7 +434,7 @@
     <ClCompile Include="..\..\..\..\silk_dec.c" />
     <ClCompile Include="..\..\..\..\silk_enc.c" />
   </ItemGroup>
-  <ItemGroup  Condition="'$(Platform)'=='Win32'">
+  <ItemGroup Condition="'$(Platform)'=='Win32'">
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\src\SKP_Silk_common_pitch_est_defines.h" />
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\src\SKP_Silk_define.h" />
     <ClInclude Include="..\..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\src\SKP_Silk_Inlines.h" />
