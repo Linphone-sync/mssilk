@@ -1,5 +1,5 @@
 SET curdir=%CD%
-SET srcdir=..\..\..\..\sdk
+SET srcdir=..\..\..\sdk
 
 REM define the need variables
 SET silk_version=1.0.9
