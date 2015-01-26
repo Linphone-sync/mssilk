@@ -43,51 +43,25 @@ case $host in
 esac
 
 case $host in
-        armv6-apple*)
-                SILK_MAKE_OPTIONS="ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
+	armv6-apple*)
+		SILK_MAKE_OPTIONS="ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
 		CFLAGS="$CFLAGS -mno-thumb"
-        ;;
-        armv7-apple*)
-                SILK_MAKE_OPTIONS="USE_NEON=yes ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
+	;;
+	armv7-apple*)
+		SILK_MAKE_OPTIONS="USE_NEON=yes ADDED_DEFINES+=IPHONE TOOLCHAIN_PREFIX=XXXX"
 		CFLAGS="$CFLAGS -mno-thumb"
-        ;;
-  *)
-     ;;
+	;;
+	armv7*)
+		SILK_MAKE_OPTIONS="USE_NEON=yes TOOLCHAIN_PREFIX=XXXX"
+	;;
+*)
+	;;
 esac
 
 
 
 AC_SUBST([SILK_FLAVOUR])
 AC_SUBST([SILK_MAKE_OPTIONS])
-
-# Checks for programs.
-AC_PATH_PROG([WGET],[wget])
-if test -z "$WGET"; then
-   AC_MSG_ERROR(['wget' is required to build this package])
-fi
-
-AC_PATH_PROG([MD5SUM],[md5sum])
-if test -z "$MD5SUM"; then
-	AC_PATH_PROG([MD5SUM],[openssl])
-	if test -n "$MD5SUM"; then
-		MD5SUM="$MD5SUM md5"
-	fi
-fi
-
-if test -z "$MD5SUM"; then
-   AC_MSG_ERROR(['md5sum' is required to build this package])
-fi
-
-AC_PATH_PROG([UNZIP],[unzip])
-if test -z "$UNZIP"; then
-   AC_MSG_ERROR(['unzip' is required to build this package])
-fi
-
-AC_PATH_PROG([PATCH],[patch])
-if test -z "$PATCH"; then
-   AC_MSG_ERROR(['patch' is required to build this package])
-fi
-
 
 LT_INIT([disable-static])
 
