@@ -1,3 +1,9 @@
+sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_FIX_v1.0.9/libSKP_SILK_SDK.a
+.libs
+*.o
+*.la
+*.lo
+Makefile
 .deps/
 INSTALL
 Makefile.in
