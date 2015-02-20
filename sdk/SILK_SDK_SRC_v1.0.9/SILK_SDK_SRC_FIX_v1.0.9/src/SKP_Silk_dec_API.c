@@ -227,10 +227,11 @@ void SKP_Silk_SDK_get_TOC(
 {
     SKP_Silk_decoder_state      sDec; // Local Decoder state to avoid interfering with running decoder */
     SKP_Silk_decoder_control    sDecCtrl;
-    SKP_int TempQ[ MAX_FRAME_LENGTH ];
+    SKP_int TempQ[ MAX_FRAME_LENGTH ]={0};
 
-    sDec.nFramesDecoded = 0;
-    sDec.fs_kHz         = 0; /* Force update parameters LPC_order etc */
+    memset(&sDec, 0, sizeof(sDec));
+    memset(&sDecCtrl, 0, sizeof(sDecCtrl));
+
     SKP_Silk_range_dec_init( &sDec.sRC, inData, ( SKP_int32 )nBytesIn );
 
     Silk_TOC->corrupt = 0;
