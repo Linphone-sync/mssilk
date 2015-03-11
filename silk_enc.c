@@ -24,6 +24,12 @@
 #define MAX_BYTES_PER_FRAME     250 // Equals peak bitrate of 100 kbps 
 #define MAX_INPUT_FRAMES        5
 
+#ifdef HAVE_ms_bufferizer_fill_current_metas
+#define ms_bufferizer_fill_current_metas(b,m) ms_bufferizer_fill_current_metas(b,m)
+#else
+#define ms_bufferizer_fill_current_metas(b,m)
+#endif
+
 /*filter common method*/
 struct silk_enc_struct {
 	SKP_SILK_SDK_EncControlStruct control;
@@ -96,8 +102,9 @@ static void filter_process ( MSFilter *f ) {
 		} else  if ( nBytes > 0 ) {
 			obj->ts+=obj->control.packetSize;
 			om->b_wptr+=nBytes;
-			mblk_set_timestamp_info ( om,obj->ts );
-			ms_queue_put ( f->outputs[0],om );
+			mblk_set_timestamp_info(om, obj->ts);
+			ms_bufferizer_fill_current_metas(obj->bufferizer, om);
+			ms_queue_put(f->outputs[0], om);
 			om=NULL;
 		}
 
