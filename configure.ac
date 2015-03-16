@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([mssilk],[1.0.0])
+AC_INIT([mssilk],[1.0.1])
 AC_PREREQ(2.63)
 AC_CONFIG_SRCDIR([sdk/known_checksums/SILK_SDK_SRC_v1.0.8.zip.md5])
 AC_CONFIG_MACRO_DIR([m4])
