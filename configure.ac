@@ -54,7 +54,12 @@ case $host in
 	armv7*)
 		SILK_MAKE_OPTIONS="USE_NEON=yes TOOLCHAIN_PREFIX=XXXX"
 	;;
-*)
+	arm*)
+		dnl override flavour for case of old arm, as a workaround of a bug in the Skype's Makefile resulting in neon functions not being compiled while requested,
+		dnl because the compiler says it supports armv7 and neon.
+		SILK_FLAVOUR=FIX
+	;;
+	*)
 	;;
 esac
 
